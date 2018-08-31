@@ -63,4 +63,94 @@ describe('CheckableButton测试', () => {
         component.find('div').first().simulate('click')
         expect(component.children().props().isChecked).toBe(true);
     })
+
+    test('传入isChecked到CheckableButton时，isChecked值应正确传递给子组件', () => {
+        const mockProps = {
+            mode: CheckableButton.Mode.multiple,
+            isChecked: false,
+            onChange: jest.fn(),
+        };
+
+        const component = shallow(
+            <CheckableButton {...mockProps}>
+                <CheckableButton.Mask />
+            </CheckableButton>
+        );
+        component.setProps({ isChecked: true });
+        expect(component.children().props().isChecked).toBe(true);
+    })
+
+    test('当手动点击改变选中状态时，onChange事件应被触发', () => {
+        const mockProps = {
+            mode: CheckableButton.Mode.multiple,
+            isChecked: false,
+            onChange: jest.fn(),
+        };
+
+        const component = shallow(
+            <CheckableButton {...mockProps}>
+                <CheckableButton.Mask />
+            </CheckableButton>
+        );
+        component.find('div').first().simulate('click');
+        expect(mockProps.onChange).toBeCalled();
+    })
+
+    test('当传入isCheckedProps改变选中状态时，onChange事件不应被触发', () => {
+        const mockProps = {
+            mode: CheckableButton.Mode.multiple,
+            isChecked: false,
+            onChange: jest.fn(),
+        };
+
+        const component = shallow(
+            <CheckableButton {...mockProps}>
+                <CheckableButton.Mask />
+            </CheckableButton>
+        );
+        component.setProps({ isChecked: true });
+        expect(mockProps.onChange).not.toBeCalled();
+    })
+
+    describe('CheckableButton.Mask测试', () => {
+        test('选中状态应出现透明遮罩层', () => {
+            const mockProps = {
+                isChecked: true,
+            };
+
+            const component = shallow(
+                <CheckableButton.Mask {...mockProps} />
+            );
+            expect(component.find('.mask').exists()).toBeTruthy();
+        });
+
+        test('非选中状态不应出现透明遮罩层', () => {
+            const mockProps = {
+                isChecked: false,
+            };
+
+            const component = shallow(
+                <CheckableButton.Mask {...mockProps} />
+            );
+            expect(component.find('.mask').exists()).toBeFalsy();
+        });
+
+        test('遮罩层的应该与根容器宽高一致', () => {
+            const mockProps = {
+                isChecked: false,
+            };
+
+            const component = shallow(
+                <CheckableButton.Mask {...mockProps} />
+            );
+            const root = component.find('.root');
+            const mask = component.find('.mask');
+            expect(
+                (
+                    root.clientWidth === mask.clientWidth &&
+                    root.clientHeight === mask.clientHeight
+                )
+            ).toBeTruthy();
+        })
+    });
 })
