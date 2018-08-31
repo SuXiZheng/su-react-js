@@ -48,4 +48,19 @@ describe('CheckableButton测试', () => {
         component.find('div').first().simulate('click')
         expect(component.state().isChecked).toBe(false);
     })
+
+    test('手动切换状态时，isChecked值应正确传递给子组件', () => {
+        const mockProps = {
+            mode: CheckableButton.Mode.multiple,
+            onChange: jest.fn(),
+        };
+
+        const component = shallow(
+            <CheckableButton {...mockProps}>
+                <CheckableButton.Mask />
+            </CheckableButton>
+        );
+        component.find('div').first().simulate('click')
+        expect(component.children().props().isChecked).toBe(true);
+    })
 })
