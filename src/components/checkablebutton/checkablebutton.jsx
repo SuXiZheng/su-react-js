@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual, merge } from 'lodash';
+import { isEqual, merge, cloneDeep } from 'lodash';
 import { Mask } from './templates/mask';
 
 /** 
@@ -100,7 +100,7 @@ export class CheckableButton extends React.PureComponent {
     }
 
     render() {
-        const newProps = merge(this.props.children.props, {
+        const newProps = merge(cloneDeep(this.props.children.props), {
             isChecked: this.state.isChecked,
             /** 
              * 禁用时使用disableStyle，启用时判断isChecked使用checkedStyle或unCheckedStyle

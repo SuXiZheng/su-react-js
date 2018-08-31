@@ -15,7 +15,7 @@ describe('CheckableButton测试', () => {
             </CheckableButton>
         );
         component.find('div').first().simulate('click');
-        expect(mockProps.onChange).not.toBeCalled();
+        expect(component.state().isChecked).toBe(false);
     })
 
     test('multiple模式可以手动切换状态', () => {
@@ -30,7 +30,7 @@ describe('CheckableButton测试', () => {
             </CheckableButton>
         );
         component.find('div').first().simulate('click')
-        expect(mockProps.onChange).toBeCalled();
+        expect(component.state().isChecked).toBe(true);
     })
 
     test('disabled时，即便mode是multiple，也不可手动切换状态', () => {
@@ -46,6 +46,6 @@ describe('CheckableButton测试', () => {
             </CheckableButton>
         );
         component.find('div').first().simulate('click')
-        expect(mockProps.onChange).not.toBeCalled();
+        expect(component.state().isChecked).toBe(false);
     })
 })
