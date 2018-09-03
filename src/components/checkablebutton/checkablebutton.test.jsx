@@ -1,6 +1,7 @@
-import { shallow } from 'enzyme';
+import { shallow, mount } from 'enzyme';
 import { CheckableButton } from './checkablebutton';
 import React from 'react';
+// import jset from 'jest';
 
 describe('CheckableButton测试', () => {
     test('single模式不可手动切换状态', () => {
@@ -121,7 +122,7 @@ describe('CheckableButton测试', () => {
             const component = shallow(
                 <CheckableButton.Mask {...mockProps} />
             );
-            expect(component.find('.mask').exists()).toBeTruthy();
+            expect(component.find({ name: 'mask' }).exists()).toBeTruthy();
         });
 
         test('非选中状态不应出现透明遮罩层', () => {
@@ -132,7 +133,7 @@ describe('CheckableButton测试', () => {
             const component = shallow(
                 <CheckableButton.Mask {...mockProps} />
             );
-            expect(component.find('.mask').exists()).toBeFalsy();
+            expect(component.find({ name: 'mask' }).exists()).toBeFalsy();
         });
 
         test('遮罩层的应该与根容器宽高一致', () => {
@@ -140,17 +141,17 @@ describe('CheckableButton测试', () => {
                 isChecked: false,
             };
 
-            const component = shallow(
-                <CheckableButton.Mask {...mockProps} />
+            const component = mount(
+                <CheckableButton.Mask {...mockProps}>
+                    <div style={{ width: 100, height: 100 }} />
+                </CheckableButton.Mask>
             );
-            const root = component.find('.root');
-            const mask = component.find('.mask');
-            expect(
-                (
-                    root.clientWidth === mask.clientWidth &&
-                    root.clientHeight === mask.clientHeight
-                )
-            ).toBeTruthy();
+            component.setProps({ isChecked: true });
+            const root = component.find({ name: 'root' }).getDOMNode();
+            console.log(root.clientWidth)
+            const mask = component.find({ name: 'mask' }).getDOMNode();
+            console.log(mask.clientWidth);
+            expect({ width: root.clientWidth, height: root.clientHeight }).toEqual({ width: mask.clientWidth, height: mask.clientHeight });
         })
     });
 })

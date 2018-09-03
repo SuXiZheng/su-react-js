@@ -30,15 +30,48 @@ export class Mask extends React.PureComponent {
         zIndex: 10,
     }
 
-    render() {
+    constructor(props) {
+        super(props);
+        this.state = {
+            /** 
+             * 组件实际宽度
+            */
+            width: 0,
+            /** 
+             * 组件实际高度
+            */
+            height: 0,
+        };
+    }
+
+    componentDidMount() {
+        this.measureActualSize();
+    }
+
+    componentDidUpdate() {
+        this.measureActualSize();
+    }
+
+    measureActualSize() {
         const rootPanel = ReactDOM.findDOMNode(this.rootRef) || {
             clientWidth: 0,
             clientHeight: 0,
         };
+
+        if (this.state.width === rootPanel.clientWidth && this.state.height === rootPanel.clientHeight) {
+            return;
+        }
+        this.setState({
+            width: rootPanel.clientWidth,
+            height: rootPanel.clientHeight,
+        });
+    }
+
+    render() {
         return (
             <div
+                name='root'
                 ref={reactElement => { this.rootRef = reactElement; }}
-                className='root'
                 style={{
                     position: 'relative'
                 }}
@@ -46,13 +79,13 @@ export class Mask extends React.PureComponent {
                 {
                     this.props.isChecked === true &&
                     <div
-                        className='mask'
+                        name='mask'
                         style={{
                             position: 'absolute',
                             zIndex: this.props.zIndex,
                             backgroundColor: this.props.backgroundColor,
-                            width: rootPanel.clientWidth,
-                            height: rootPanel.clientHeight,
+                            width: this.state.width,
+                            height: this.state.height,
                         }}
                     >
                     </div>
