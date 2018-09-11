@@ -67,6 +67,14 @@ export class CheckableButton extends React.PureComponent {
         onChange: (isChecked) => { }
     }
 
+    // 此控件不适用getDerivedStateFromProps方法的原因时。当在控件内容改变其state.isChecked时，也会触发该方法。但props.isChecked并未改变。
+    // static getDerivedStateFromProps(props, state) {
+    //     if (isEqual(props.isChecked, state.isChecked) === false) {
+    //         return { isChecked: props.isChecked }
+    //     }
+    //     return null;
+    // }
+
     constructor(props) {
         super(props);
         this.state = {
@@ -108,7 +116,7 @@ export class CheckableButton extends React.PureComponent {
             style: this.props.isEnable === true ? this.state.isChecked ? this.props.checkedStyle : this.props.unCheckedStyle : this.props.disabledStyle,
         })
         return (
-            <div onClick={this.toggle.bind(this)}>
+            <div name='root' onClick={this.toggle.bind(this)}>
                 {
                     React.cloneElement(this.props.children, newProps)
                 }

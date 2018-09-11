@@ -30,7 +30,7 @@ describe('CheckableButton测试', () => {
                 <CheckableButton.Mask />
             </CheckableButton>
         );
-        component.find('div').first().simulate('click')
+        component.find('div[name="root"]').simulate('click')
         expect(component.state().isChecked).toBe(true);
     })
 
