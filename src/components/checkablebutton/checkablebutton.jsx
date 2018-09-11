@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual, merge, cloneDeep } from 'lodash';
+import { CheckableButtonGroup } from './checkablebuttongroup';
 import { Mask } from './templates/mask';
 
 /** 
@@ -22,6 +23,7 @@ export const Mode = {
  */
 export class CheckableButton extends React.PureComponent {
     static Mode = Mode;
+    static Group = CheckableButtonGroup;
     static Mask = Mask;
     static propTypes = {
         isChecked: PropTypes.bool,
@@ -31,6 +33,7 @@ export class CheckableButton extends React.PureComponent {
         checkedStyle: PropTypes.object,
         unCheckedStyle: PropTypes.object,
         disabledStyle: PropTypes.object,
+        value: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.number]),
         onChange: PropTypes.func,
     }
     static defaultProps = {
@@ -60,6 +63,10 @@ export class CheckableButton extends React.PureComponent {
          * 禁用时的样式
         */
         disabledStyle: {},
+        /** 
+         * value
+        */
+        value: null,
         /** 
          * 选中状态改变事件
          * @param {boolean} isChecked
