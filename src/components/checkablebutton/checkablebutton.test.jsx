@@ -148,9 +148,7 @@ describe('CheckableButton测试', () => {
             );
             component.setProps({ isChecked: true });
             const root = component.find({ name: 'root' }).getDOMNode();
-            console.log(root.clientWidth)
             const mask = component.find({ name: 'mask' }).getDOMNode();
-            console.log(mask.clientWidth);
             expect({ width: root.clientWidth, height: root.clientHeight }).toEqual({ width: mask.clientWidth, height: mask.clientHeight });
         })
     });
