@@ -14,6 +14,16 @@ export const Mode = {
     multiple: 'multiple',
 };
 
+/** 
+ * 布局方式
+ * horizontal 水品布局
+ * vertical 垂直布局
+*/
+export const Orientation = {
+    horizontal: 'horizontal',
+    vertical: 'vertical',
+};
+
 /**
  * 切换选中状态的按钮
  *
@@ -23,6 +33,7 @@ export const Mode = {
  */
 export class CheckableButton extends React.PureComponent {
     static Mode = Mode;
+    static Orientation = Orientation;
     static Group = CheckableButtonGroup;
     static Mask = Mask;
     static propTypes = {
