@@ -146,6 +146,8 @@ describe('CheckableButton测试', () => {
                     <div style={{ width: 100, height: 100 }} />
                 </CheckableButton.Mask>
             );
+
+            var s = 1 + 1;
             component.setProps({ isChecked: true });
             const root = component.find({ name: 'root' }).getDOMNode();
             const mask = component.find({ name: 'mask' }).getDOMNode();
