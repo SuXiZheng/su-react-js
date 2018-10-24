@@ -6,13 +6,27 @@ import { isEqual } from "lodash";
 export class NormalTemplate extends React.PureComponent {
   static propTypes = {
     style: PropTypes.object,
-    datetime: PropTypes.object.isRequired
+    datetime: PropTypes.object.isRequired,
+    onClick: PropTypes.func
   };
   static defaultProps = {
-    style: {}
+    style: {},
+    /**
+     * 日期点击事件
+     * @param {string} [dateString] YYYY-MM-DD
+     * @param {momment} [date] moment对象
+     */
+    onClick: (dateString, date) => {}
   };
   render() {
-    return <span style={this.props.style}>{this.props.datetime.day()}</span>;
+    return (
+      <span
+        date={this.props.datetime.format("YYYY-MM-DD")}
+        style={this.props.style}
+      >
+        {this.props.datetime.format("D")}
+      </span>
+    );
   }
 }
 
@@ -22,7 +36,7 @@ export class Day extends React.PureComponent {
     /**
      * 是否可见
      */
-    visbile: PropTypes.bool,
+    visible: PropTypes.bool,
     /**
      * 样式
      */
@@ -37,9 +51,9 @@ export class Day extends React.PureComponent {
     template: PropTypes.element
   };
   static defaultProps = {
-    visbile: true,
+    visible: true,
     style: { display: "flex", justifyContent: "center", alignItems: "center" },
-    textStyle: {},
+    textStyle: { cursor: "pointer" },
     template: <NormalTemplate datetime={moment()} />
   };
 
@@ -47,8 +61,16 @@ export class Day extends React.PureComponent {
 
   render() {
     return (
-      <div style={this.props.style}>
-        {this.props.visbile === true &&
+      <div
+        style={this.props.style}
+        onClick={() => {
+          this.props.onClick(
+            this.props.datetime.format("YYYY-MM-DD"),
+            this.props.datetime.clone()
+          );
+        }}
+      >
+        {this.props.visible === true &&
           React.cloneElement(this.props.template, {
             datetime: this.props.datetime,
             style: this.props.textStyle
