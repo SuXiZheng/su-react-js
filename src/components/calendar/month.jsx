@@ -46,7 +46,7 @@ export class Month extends React.PureComponent {
       "YYYY-MM-DD"
     );
     // 当月1号是周几
-    const firstDayOfWeekInMonth = firstDayOfMonth.weekday();
+    const firstDayOfWeekInMonth = firstDayOfMonth.isoWeekday();
     // 当月共多少天
     const daysInMonth = this.props.datetime.daysInMonth();
     var rows = [];

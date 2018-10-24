@@ -17,7 +17,7 @@ class App extends Component {
       //     To get started, edit <code>src/App.js</code> and save to reload.
       //   </p>
       // </div>
-      <Month datetime={moment("2018-09-10")} daysOfOtherMonthVisble={false} />
+      <Month datetime={moment("2018-10-1")} daysOfOtherMonthVisble={false} />
     );
   }
 }
