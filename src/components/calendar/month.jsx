@@ -58,7 +58,6 @@ export class Month extends React.PureComponent {
     ) {
       var daysInRow = [];
       for (var weekday = 1; weekday <= 7; weekday++) {
-        var datetime = firstDayOfMonth.clone().add(1, "day");
         if (row === 1 && weekday < firstDayOfWeekInMonth) {
           daysInRow.push(
             firstDayOfMonth
