@@ -6,10 +6,10 @@ import { cloneDeep } from "lodash";
 
 export class WeekdayTemplate extends React.PureComponent {
   render() {
-    const weekday = this.props.weekday;
+    const { weekday, labelOfWeekday } = this.props;
     return (
       <div key={weekday} style={this.props.style}>
-        <span>{weekday}</span>
+        <span>{labelOfWeekday}</span>
       </div>
     );
   }
@@ -25,7 +25,7 @@ export class Month extends React.PureComponent {
   };
   static defaultProps = {
     style: {},
-    weekdays: ["一", "二", "三", "四", "五", "六", "七"],
+    weekdays: ["一", "二", "三", "四", "五", "六", "日"],
     headItemStyle: {
       width: 50,
       display: "flex",
@@ -107,9 +107,10 @@ export class Month extends React.PureComponent {
           alignItems: "center"
         }}
       >
-        {this.props.weekdays.map(weekday => {
+        {this.props.weekdays.map((weekday, index) => {
           return React.cloneElement(this.props.templateOfWeekday, {
-            weekday: weekday,
+            weekday: index + 1,
+            labelOfWeekday: weekday,
             style: this.props.headItemStyle,
             key: weekday
           });
