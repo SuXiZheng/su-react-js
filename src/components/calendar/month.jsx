@@ -4,6 +4,17 @@ import moment from "moment";
 import { Day } from "./day";
 import { cloneDeep } from "lodash";
 
+export class WeekdayTemplate extends React.PureComponent {
+  render() {
+    const weekday = this.props.weekday;
+    return (
+      <div key={weekday} style={this.props.style}>
+        <span>{weekday}</span>
+      </div>
+    );
+  }
+}
+
 export class Month extends React.PureComponent {
   static propTypes = {
     datetime: PropTypes.object.isRequired,
@@ -19,7 +30,9 @@ export class Month extends React.PureComponent {
       width: 50,
       display: "flex",
       alignItems: "center",
-      justifyContent: "center"
+      justifyContent: "center",
+      fontSize: 20,
+      fontWeight: "bold"
     },
     bodyItemStyle: {
       width: 50,
@@ -31,6 +44,14 @@ export class Month extends React.PureComponent {
      * 不在当月的日期是否显示
      */
     daysOfOtherMonthVisble: true,
+    /**
+     * 日期模版
+     */
+    templateOfDay: Day.defaultProps.template,
+    /**
+     * 周几模版
+     */
+    templateOfWeekday: <WeekdayTemplate />,
     /**
      * 日期点击事件
      * @param {string} [dateString] YYYY-MM-DD
@@ -87,11 +108,11 @@ export class Month extends React.PureComponent {
         }}
       >
         {this.props.weekdays.map(weekday => {
-          return (
-            <div key={weekday} style={this.props.headItemStyle}>
-              <span>{weekday}</span>
-            </div>
-          );
+          return React.cloneElement(this.props.templateOfWeekday, {
+            weekday: weekday,
+            style: this.props.headItemStyle,
+            key: weekday
+          });
         })}
       </div>
     );

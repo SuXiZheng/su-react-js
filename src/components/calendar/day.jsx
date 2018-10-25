@@ -48,7 +48,7 @@ export class Day extends React.PureComponent {
     /**
      * 模版
      */
-    template: PropTypes.element
+    template: PropTypes.element,
   };
   static defaultProps = {
     visible: true,

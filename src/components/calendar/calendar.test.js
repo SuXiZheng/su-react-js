@@ -15,6 +15,12 @@ class CustomTemplate extends React.PureComponent {
   }
 }
 
+export class CustomTemplateOfWeekday extends React.PureComponent {
+  render() {
+    return <div weekday={this.props.weekday}>周{this.props.weekday}</div>;
+  }
+}
+
 describe("Calendar测试", () => {
   describe("Day组件测试", () => {
     test("day可见", () => {
@@ -98,6 +104,17 @@ describe("Calendar测试", () => {
         .first()
         .simulate("click");
       expect(mockProps.onClick).toBeCalled();
+    });
+
+    test("自定义表头", () => {
+      const component = mount(
+        <Month
+          datetime={moment()}
+          templateOfWeekday={<CustomTemplateOfWeekday />}
+        />
+      );
+
+      expect(component.find(CustomTemplateOfWeekday).exists()).toBeTruthy();
     });
   });
 });
