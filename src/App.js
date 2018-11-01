@@ -25,7 +25,7 @@ class App extends Component {
       // </div>
       <Month
         datetime={moment("2018-10-1")}
-        templateOfWeekday={<CustomTemplateOfWeekday />}
+        // templateOfWeekday={<CustomTemplateOfWeekday />}
         daysOfOtherMonthVisble={false}
       />
     );

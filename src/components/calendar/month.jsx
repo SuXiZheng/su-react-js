@@ -3,14 +3,17 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import { Day } from "./day";
 import { cloneDeep } from "lodash";
-// import styles from "./calendar.module.css";
-import styles from './Button.module.css';
+import styles from "./calendar.module.css";
 
 export class WeekdayTemplate extends React.PureComponent {
   render() {
     const { weekday, labelOfWeekday } = this.props;
     return (
-      <div key={weekday} style={this.props.style}>
+      <div
+        key={weekday}
+        style={this.props.style}
+        className={styles.weekdayTemplate}
+      >
         <span>{labelOfWeekday}</span>
       </div>
     );
@@ -28,20 +31,8 @@ export class Month extends React.PureComponent {
   static defaultProps = {
     style: {},
     weekdays: ["一", "二", "三", "四", "五", "六", "日"],
-    headItemStyle: {
-      width: 50,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontSize: 20,
-      fontWeight: "bold"
-    },
-    bodyItemStyle: {
-      width: 50,
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center"
-    },
+    headItemStyle: {},
+    bodyItemStyle: {},
     /**
      * 不在当月的日期是否显示
      */
@@ -102,7 +93,7 @@ export class Month extends React.PureComponent {
 
   headRender() {
     return (
-      <div className={styles.error}>
+      <div className={styles.layout_center_center}>
         {this.props.weekdays.map((weekday, index) => {
           return React.cloneElement(this.props.templateOfWeekday, {
             weekday: index + 1,
@@ -119,14 +110,7 @@ export class Month extends React.PureComponent {
     var rows = this.setup();
     return rows.map((row, index) => {
       return (
-        <div
-          key={index}
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center"
-          }}
-        >
+        <div key={index} className={styles.layout_center_center}>
           {row.daysInRow.map(day => {
             var dayVisible = true;
             if (this.props.daysOfOtherMonthVisble === false) {

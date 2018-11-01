@@ -1,14 +1,26 @@
-.day {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.default_day_template_text {
-  cursor: pointer;
-}
-
 .month {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.layout_center_center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.weekdayTemplate {
+  width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  font-weight: bold;
+}
+.dayTemplate {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50px;
+  cursor: pointer;
 }

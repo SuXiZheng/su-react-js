@@ -24,7 +24,7 @@ export class NormalTemplate extends React.PureComponent {
       <span
         date={this.props.datetime.format("YYYY-MM-DD")}
         style={this.props.style}
-        className={styles.default_day_template_text}
+        className={styles.dayTemplate}
       >
         {this.props.datetime.format("D")}
       </span>
@@ -65,7 +65,7 @@ export class Day extends React.PureComponent {
     return (
       <div
         style={this.props.style}
-        className={styles.day}
+        className={styles.dayTemplate}
         onClick={() => {
           this.props.onClick(
             this.props.datetime.format("YYYY-MM-DD"),
