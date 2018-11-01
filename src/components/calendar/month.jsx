@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import moment from "moment";
 import { Day } from "./day";
 import { cloneDeep } from "lodash";
+// import styles from "./calendar.module.css";
+import styles from './Button.module.css';
 
 export class WeekdayTemplate extends React.PureComponent {
   render() {
@@ -100,13 +102,7 @@ export class Month extends React.PureComponent {
 
   headRender() {
     return (
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center"
-        }}
-      >
+      <div className={styles.error}>
         {this.props.weekdays.map((weekday, index) => {
           return React.cloneElement(this.props.templateOfWeekday, {
             weekday: index + 1,

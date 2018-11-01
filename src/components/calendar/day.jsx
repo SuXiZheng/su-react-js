@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { isEqual } from "lodash";
+import styles from "./calendar.module.css";
 
 export class NormalTemplate extends React.PureComponent {
   static propTypes = {
@@ -23,6 +24,7 @@ export class NormalTemplate extends React.PureComponent {
       <span
         date={this.props.datetime.format("YYYY-MM-DD")}
         style={this.props.style}
+        className={styles.default_day_template_text}
       >
         {this.props.datetime.format("D")}
       </span>
@@ -48,12 +50,12 @@ export class Day extends React.PureComponent {
     /**
      * 模版
      */
-    template: PropTypes.element,
+    template: PropTypes.element
   };
   static defaultProps = {
     visible: true,
-    style: { display: "flex", justifyContent: "center", alignItems: "center" },
-    textStyle: { cursor: "pointer" },
+    style: {},
+    textStyle: {},
     template: <NormalTemplate datetime={moment()} />
   };
 
@@ -63,6 +65,7 @@ export class Day extends React.PureComponent {
     return (
       <div
         style={this.props.style}
+        className={styles.day}
         onClick={() => {
           this.props.onClick(
             this.props.datetime.format("YYYY-MM-DD"),

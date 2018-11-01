@@ -1,0 +1,14 @@
+.day {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.default_day_template_text {
+  cursor: pointer;
+}
+
+.month {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
