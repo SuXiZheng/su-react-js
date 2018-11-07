@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 export class Mask extends React.PureComponent {
     static propTypes = {
-        isChecked: PropTypes.bool,
+        isSelected: PropTypes.bool,
         children: PropTypes.element,
         color: PropTypes.string,
         backgroundColor: PropTypes.string,
@@ -15,7 +15,7 @@ export class Mask extends React.PureComponent {
         /** 
          * 是否选中
         */
-        isChecked: false,
+       isSelected: false,
         /** 
          * 遮罩层背景色
         */
@@ -77,7 +77,7 @@ export class Mask extends React.PureComponent {
                 }}
             >
                 {
-                    this.props.isChecked === true &&
+                    this.props.isSelected === true &&
                     <div
                         name='mask'
                         style={{
