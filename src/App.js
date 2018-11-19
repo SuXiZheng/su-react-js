@@ -1,9 +1,10 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { CheckableButtonPage } from "./pages/checkablebuttonpage";
+// import { CheckableButtonPage } from "./pages/checkablebuttonpage";
 import { Month } from "./components/calendar/month";
 import moment from "moment";
+import { Uploader } from "./components/uploader/uploader";
 
 export class CustomTemplateOfWeekday extends React.PureComponent {
   render() {
@@ -23,10 +24,11 @@ class App extends Component {
       //     To get started, edit <code>src/App.js</code> and save to reload.
       //   </p>
       // </div>
-      <Month
-        datetime={moment("2018-10-1")}
-        // templateOfWeekday={<CustomTemplateOfWeekday />}
-        daysOfOtherMonthVisble={false}
+      <Uploader
+        serviceUrl="http://localhost:4000/upload"
+        // onError={e => {
+        //   alert(`${e}`);
+        // }}
       />
     );
   }
