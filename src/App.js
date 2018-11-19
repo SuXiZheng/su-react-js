@@ -25,7 +25,7 @@ class App extends Component {
       //   </p>
       // </div>
       <Uploader
-        serviceUrl="http://localhost:4000/upload"
+        action="http://localhost:4000/upload"
         // onError={e => {
         //   alert(`${e}`);
         // }}

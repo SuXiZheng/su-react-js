@@ -15,7 +15,7 @@ import { Progressbar } from "./progressbar";
 export class Uploader extends React.Component {
   static propTypes = {
     multiple: PropTypes.bool,
-    serviceUrl: PropTypes.string.isRequired,
+    action: PropTypes.string.isRequired,
     accept: PropTypes.string,
     onError: PropTypes.func,
     onSuccess: PropTypes.func,
@@ -24,7 +24,8 @@ export class Uploader extends React.Component {
     style: PropTypes.object,
     uploadButtonStyle: PropTypes.object,
     progressbarContainerStyle: PropTypes.object,
-    progressbar: PropTypes.object
+    progressbar: PropTypes.object,
+    removeButtonVisible: PropTypes.bool
   };
   static defaultProps = {
     multiple: true,
@@ -37,7 +38,8 @@ export class Uploader extends React.Component {
     removeButtonStyle: {},
     uploadButtonStyle: {},
     progressbarContainerStyle: {},
-    progressbar: <Progressbar file="1" />
+    progressbar: <Progressbar file="1" />,
+    removeButtonVisible: true
   };
 
   constructor(props) {
@@ -59,7 +61,7 @@ export class Uploader extends React.Component {
       var uploadTask = new UploadTask(file);
       uploadTask.onProgress = this.onProgress.bind(this);
       uploadTasks.push(uploadTask);
-      promises.push(uploadTask.execAsync(this.props.serviceUrl));
+      promises.push(uploadTask.execAsync(this.props.action));
     });
 
     this.setState({
@@ -113,6 +115,9 @@ export class Uploader extends React.Component {
             for (var i = 0; i < e.target.files.length; i++) {
               files.push(e.target.files.item(i));
             }
+            if (files.length <= 0) {
+              return;
+            }
             this.upload(files);
             // this.upload([{ name: "A.jpg" }, { name: "B.jpg" }]);
           }}
@@ -141,17 +146,19 @@ export class Uploader extends React.Component {
                 );
               })}
             </div>
-            <div>
-              <div
-                className={styles.removeButton}
-                style={this.props.removeButtonStyle}
-                onClick={e => {
-                  this.removeTask();
-                }}
-              >
-                {this.props.removeButton}
+            {this.props.removeButtonVisible && (
+              <div>
+                <div
+                  className={styles.removeButton}
+                  style={this.props.removeButtonStyle}
+                  onClick={e => {
+                    this.removeTask();
+                  }}
+                >
+                  {this.props.removeButton}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         )}
       </div>
