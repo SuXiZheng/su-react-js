@@ -4,7 +4,9 @@ export default (url, options, onSuccess, onFailure) => {
       if (response.ok) {
         return response.json();
       } else {
-        throw await response.text();
+        response.text().then(error => {
+          throw error;
+        });
       }
     })
     .then(json => onSuccess && onSuccess(json))
