@@ -5,12 +5,14 @@ export default (url, options) => {
         if (response.ok) {
           return response.json();
         } else {
-          response.text().then(error => {
-            throw error;
-          });
+          throw response.text();
         }
       })
       .then(json => resolve(json))
-      .catch(error => reject(error));
+      .catch(error => {
+        error.then(errorMessage => {
+          reject(errorMessage);
+        });
+      });
   });
 };
