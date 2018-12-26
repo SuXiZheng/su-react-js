@@ -10,9 +10,11 @@ export default (url, options) => {
       })
       .then(json => resolve(json))
       .catch(error => {
-        error.then(errorMessage => {
-          reject(errorMessage);
-        });
+        if (typeof error === "function") {
+          error.then(errorMessage => {
+            reject(errorMessage);
+          });
+        }
       });
   });
 };
